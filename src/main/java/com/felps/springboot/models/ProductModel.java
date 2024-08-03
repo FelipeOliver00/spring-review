@@ -14,7 +14,7 @@ public class ProductModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idProduct;
-    private String nome;
+    private String name;
     private BigDecimal value;
 
     public UUID getIdProduct() {
@@ -25,12 +25,12 @@ public class ProductModel implements Serializable {
         this.idProduct = idProduct;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BigDecimal getValue() {
