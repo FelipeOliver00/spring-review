@@ -4,6 +4,7 @@ import com.felps.springboot.dtos.ProductRecordDto;
 import com.felps.springboot.models.ProductModel;
 import com.felps.springboot.repositories.ProductRepository;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,5 +54,15 @@ public class ProductController {
         var productModel = product.get();
         BeanUtils.copyProperties(productRecordDto, productModel);
         return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteProduct(@PathVariable(value = "id") UUID id) {
+        Optional<ProductModel> product = productRepository.findById(id);
+        if (product.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
+        }
+        productRepository.delete(product.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully.");
     }
 }
